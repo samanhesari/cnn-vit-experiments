@@ -1,277 +1,188 @@
+# CNN vs Vision Transformer on CIFAR-10 (PyTorch)
 
-# CIFAR-10 Image Classification using CNNs and Vision Transformers
+## Overview
 
-A deep learning project comparing convolutional neural networks (CNNs) and Vision Transformers (ViTs) on the CIFAR-10 dataset using PyTorch.
+This project benchmarks four deep learning architectures for CIFAR-10 image classification using PyTorch, comparing both Convolutional Neural Networks (CNNs) and Vision Transformers (ViTs).
 
-This project explores:
-- Custom CNN architectures
-- Transfer learning with VGG16
-- Custom Vision Transformer implementation
-- Fine-tuning pretrained ViT models
+CNNs primarily focus on learning local spatial features such as edges, textures, and shapes through convolution operations, making them highly efficient for smaller image datasets. In contrast, Vision Transformers analyse global relationships between image patches using self-attention mechanisms, enabling stronger contextual understanding and improved feature generalisation.
 
-The goal was to evaluate how traditional CNNs compare against transformer-based architectures for image classification tasks.
+Models implemented:
+- **Custom CNN** — A lightweight convolutional neural network built from scratch using convolution, batch normalisation, pooling, and dropout layers.
+- **Fine-tuned VGG16** — An ImageNet pretrained VGG16 model adapted for CIFAR-10 using transfer learning and partial layer fine-tuning.
+- **Custom Vision Transformer (ViT)** — A transformer-based architecture developed from scratch using patch embeddings, positional encoding, and self-attention mechanisms.
+- **Fine-tuned Pretrained ViT-B/16** — A pretrained Vision Transformer fine-tuned on CIFAR-10 by updating the classification head and final transformer block.
 
----
 
-# Project Overview
+The goal of this experiment is to evaluates:
+- CNN vs Transformer-based architectures
+- Transfer learning effectiveness
+- Training efficiency
+- Generalisation performance on CIFAR-10
 
-In this project, four different deep learning models were trained and evaluated on CIFAR-10:
 
-| Model | Category | Approach |
-|---|---|---|
-| Simple CNN | CNN | Built from scratch |
-| VGG16 | CNN | Transfer Learning |
-| Custom Vision Transformer | Transformer | Built from scratch |
-| ViT-B/16 | Transformer | Transfer Learning |
+Fine-tuned Pretrained ViT-B/16 achieved over 95% test accuracy on unseen test data within a single epoch, significantly outperforming all other architectures.
 
 ---
 
-# Dataset
-
-The project uses the CIFAR-10 dataset containing 60,000 colour images across 10 classes:
-
-- Airplane
-- Automobile
-- Bird
-- Cat
-- Deer
-- Dog
-- Frog
-- Horse
-- Ship
-- Truck
-
-Dataset image size: `32x32 RGB`
-
----
-
-# Technologies Used
+## Technologies Used
 
 - Python
 - PyTorch
 - Torchvision
-- NumPy
 - Matplotlib
-- Scikit-learn
+- CUDA / GPU Training
 
 ---
 
-# Models Implemented
+## Dataset
 
-## 1. Simple CNN
-Custom convolutional neural network with:
-- Convolution layers
-- Batch Normalisation
-- ReLU activations
-- Max Pooling
-- Dropout regularisation
+CIFAR-10 contains 60,000 colour images across 10 classes:
+- airplane
+- automobile
+- bird
+- cat
+- deer
+- dog
+- frog
+- horse
+- ship
+- truck
 
-### Key Learning
-Built a lightweight baseline CNN architecture for image classification.
-
----
-
-## 2. VGG16 Transfer Learning
-Fine-tuned pretrained VGG16 from ImageNet.
-
-### Transfer Learning Strategy
-- Frozen early layers
-- Fine-tuned:
-  - Final convolution block
-  - Fully connected classifier layers
-
-### Key Learning
-Demonstrated how pretrained CNN features improve performance on smaller datasets.
-
----
-
-## 3. Custom Vision Transformer (ViT)
-Implemented a Vision Transformer from scratch using:
-- Patch embeddings
-- Positional encoding
-- Transformer encoder blocks
-- Multi-head self-attention
-
-### Key Learning
-Explored transformer-based image classification without convolution operations.
-
----
-
-## 4. ViT-B/16 Transfer Learning
-Fine-tuned pretrained Vision Transformer from ImageNet.
-
-### Fine-Tuning Strategy
-- Frozen encoder layers
-- Fine-tuned:
-  - Final transformer block
-  - Classification head
-
-### Key Learning
-Compared transformer transfer learning performance against CNN-based transfer learning.
-
----
-
-# Results
-
-| Model | Test Accuracy |
-|---|---|
-| Simple CNN | XX% |
-| VGG16 Transfer Learning | XX% |
-| Custom ViT | XX% |
-| ViT-B/16 Transfer Learning | XX% |
-
----
-
-# Sample Training Curves
-
-Add your plots here:
-
-```markdown
-![Training Accuracy](results/training_curves.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Deep Learning Benchmark: CNNs vs Vision Transformers on CIFAR-10
-
-
-
-
-
-
-
-
-
-Built as part of independent deep learning research and experimentation using PyTorch.
-
----
-
-## Project Overview
-
-This project benchmarks and compares four deep learning architectures for image classification on the CIFAR-10 dataset using PyTorch.
-
-The goal was to evaluate the differences between traditional Convolutional Neural Networks (CNNs) and Transformer-based architectures in terms of:
-
-- Classification accuracy
-- Training efficiency
-- Transfer learning performance
-- Generalisation capability
-- Model complexity
-
-The project includes both custom-built architectures and pretrained transfer learning approaches.
+Input image size:
+32×32 RGB images.
 
 ---
 
 ## Models Implemented
 
-### 1. Simple CNN
-A lightweight convolutional neural network designed from scratch for CIFAR-10 classification.
+### 🔹 Simple CNN (From Scratch)
 
-Features:
-- 3 convolutional blocks
-- Batch Normalisation
-- ReLU activations
-- MaxPooling
-- Dropout regularisation
+A custom Convolutional Neural Network built as a baseline model.
 
----
+- 3 convolutional blocks with BatchNorm + ReLU
+- MaxPooling for spatial downsampling
+- Fully connected classifier with dropout
+- Trained entirely from scratch on CIFAR-10
+- All parameters are trainable
 
-### 2. VGG16 Transfer Learning
-Fine-tuned ImageNet-pretrained VGG16 model.
-
-Transfer learning strategy:
-- Frozen early convolutional layers
-- Fine-tuned Conv5 block
-- Custom classifier head for CIFAR-10
+**Key idea:** Learns visual features directly from dataset without any prior knowledge.
 
 ---
 
-### 3. Custom Vision Transformer (ViT)
-A Vision Transformer implementation built from scratch.
+### 🔹 VGG16 (Transfer Learning)
 
-Components:
-- Patch Embedding
-- Positional Encoding
-- CLS Token
-- Multi-Head Self-Attention
-- Transformer Encoder Layers
+A pretrained VGG16 model originally trained on ImageNet, adapted for CIFAR-10.
 
----
+- Pretrained convolutional feature extractor (ImageNet weights)
+- Final classification layer replaced for 10 classes
+- Most convolutional layers frozen
+- Last convolutional block + classifier fine-tuned
 
-### 4. ViT-B/16 Fine-Tuning
-Fine-tuned pretrained Vision Transformer using ImageNet weights.
-
-Fine-tuning strategy:
-- Frozen encoder layers
-- Fine-tuned final transformer block
-- Custom classification head
+**Key idea:** Reuses learned visual features to improve generalisation and reduce training time.
 
 ---
 
-# Dataset
+### 🔹 Vision Transformer (ViT – From Scratch)
 
-## CIFAR-10
+A transformer-based architecture that processes images as sequences of patches.
 
-The CIFAR-10 dataset contains:
-- 60,000 colour images
-- 10 image classes
-- Image size: 32×32 RGB
+- Image split into 4×4 patches
+- Patch embeddings passed into transformer encoder
+- Self-attention used to model global relationships
+- No pretraining used (trained from scratch)
+- Fully trainable model
 
-Classes:
-- Airplane
-- Automobile
-- Bird
-- Cat
-- Deer
-- Dog
-- Frog
-- Horse
-- Ship
-- Truck
+**Key idea:** Learns global dependencies instead of local convolutional features.
 
 ---
 
-# Project Structure
+### 🔹 ViT-B/16 (Pretrained + Fine-Tuned)
 
-```text
+A pretrained Vision Transformer fine-tuned for CIFAR-10 classification.
+
+- Pretrained on ImageNet-1K
+- Patch-based transformer architecture (16×16 patches)
+- Most encoder layers frozen
+- Last transformer block + classification head fine-tuned
+
+**Key idea:** Combines large-scale pretraining with task-specific adaptation.
+
+---
+
+## 📊 Model Summary Table
+
+| Model | Architecture Type | Total Parameters | Trainable Parameters | Frozen Parameters | Pretrained | Key Idea |
+|------|------------------|------------------|---------------------|------------------|------------|----------|
+| Simple CNN | CNN (from scratch) | Low (~1–2M) | 100% | 0% | ❌ | Learns features directly from CIFAR-10 |
+| VGG16 (TL) | CNN + Transfer Learning | High (~138M) | ~10–15% | ~85–90% | ✅ ImageNet | Transfers pretrained visual features |
+| ViT (from scratch) | Transformer | Medium (~5–7M) | 100% | 0% | ❌ | Learns global relationships via patches |
+| ViT-B/16 (TL) | Transformer + Transfer Learning | Very High (~85M+) | ~5–10% | ~90–95% | ✅ ImageNet | Strong transfer learning with attention |
+
+---
+
+## Results
+
+| Model | Train Accuracy | Test Accuracy | Best Epoch |
+|------|------|------|------|
+| Custom CNN | 90.98% | 80.47% | 20 |
+| VGG16 Transfer Learning | 94.81% | 86.97% | 24 |
+| Custom ViT | 87.63% | 75.45% | 144 |
+| Pretrained ViT-B/16 | 99.72% | 96.13% | 18 |
+
+---
+
+## 📈 Learning Curves (Accuracy vs Epoch)
+
+The following plots show training and validation accuracy across epochs for each model.
+
+### Custom CNN
+<img src="results/custom_cnn/accuracy_curve.png" width="600"/>
+
+
+### VGG16 (Transfer Learning)
+(Insert plot here)
+
+### Custom Vision Transformer
+(Insert plot here)
+
+### ViT-B/16 (Pretrained)
+(Insert plot here)
+## Key Findings
+
+- Transfer learning significantly outperformed training from scratch.
+- Pretrained Vision Transformers achieved the highest accuracy.
+- Custom ViT required substantially more training epochs.
+- CNN architectures remained computationally efficient for smaller datasets.
+
+---
+
+## Project Structure
+
 project/
 │
-├── README.md
-├── requirements.txt
-├── train.py
-├── evaluate.py
-│
 ├── models/
-│   ├── simple_cnn.py
-│   ├── vgg16_transfer.py
-│   ├── custom_vit.py
-│   └── vit_transfer.py
-│
+├── training/
 ├── notebooks/
-│   └── experiments.ipynb
-│
 ├── results/
-│   ├── accuracy_plot.png
-│   ├── confusion_matrix.png
-│   └── metrics.csv
-│
-└── saved_models/
+├── plots/
+├── README.md
+└── requirements.txt
+
+---
+
+## Future Improvements
+
+- Data augmentation experiments
+- Hyperparameter optimisation
+- Mixed precision training
+- EfficientNet comparison
+- Grad-CAM visualisation
+
+---
+
+## Author
+
+[Your Name]
+
+MSc Artificial Intelligence / Data Science
+Liverpool, United Kingdom
