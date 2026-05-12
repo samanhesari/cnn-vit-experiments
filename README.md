@@ -138,22 +138,25 @@ The following plots show training and validation accuracy across epochs for each
 ### Custom CNN
 <img src="results/custom_cnn/accuracy_curve.png" width="600"/>
 
-
 ### VGG16 (Transfer Learning)
-(Insert plot here)
+<img src="results/pretrained_vgg16/accuracy_curve.png" width="600"/>
 
 ### Custom Vision Transformer
-(Insert plot here)
+<img src="results/custom_vit/accuracy_curve.png" width="600"/>
 
 ### ViT-B/16 (Pretrained)
-(Insert plot here)
+<img src="results/finetuned_vit/accuracy_curve.png" width="600"/>
+
+
+as it is clear
 ## Key Findings
-
-- Transfer learning significantly outperformed training from scratch.
 - Pretrained Vision Transformers achieved the highest accuracy.
+- Pretrained Vision Transformers reached more than 95% accuracy on unseen test data in just one epoch.
+- Transfer learning significantly outperformed training from scratch.
 - Custom ViT required substantially more training epochs.
+- custom CNN and custom ViT showed signs of overfitting, where training accuracy increased substantially while validation/test accuracy lagged behind.
+- Transfer learning significantly reduced overfitting compared to training models from scratch.
 - CNN architectures remained computationally efficient for smaller datasets.
-
 ---
 
 ## Project Structure
@@ -179,6 +182,39 @@ project/
 - Grad-CAM visualisation
 
 ---
+
+## ⚙️ Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+
+# 2. Create virtual environment
+python -m venv venv
+
+# Activate environment
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
+
+# 3. Upgrade pip
+pip install --upgrade pip
+
+# 4. Install dependencies
+pip install -r requirements.txt
+
+# 5. Install Jupyter Notebook (if not installed)
+pip install notebook
+
+# Or install Jupyter Lab
+pip install jupyterlab
+
+# 6. Run Jupyter
+jupyter notebook
+# or
+jupyter lab
 
 ## Author
 
