@@ -200,16 +200,6 @@ project/
 - Torchvision
 - Matplotlib
 - CUDA / GPU Training
-
----
-
-## Technologies Used
-
-- Python
-- PyTorch
-- Torchvision
-- Matplotlib
-- CUDA / GPU Training
 ## ⚙️ Installation
 
 ```bash
