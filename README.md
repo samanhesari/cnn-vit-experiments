@@ -1,4 +1,24 @@
-# CNN vs Vision Transformer on CIFAR-10 (PyTorch)
+# CNNs vs Vision Transformers on CIFAR-10: Attention Matters
+An empirical study evaluating CNN and Vision Transformer architectures for image classification using CIFAR-10.
+## 📌 Contents
+
+- [Overview](#overview)  
+- [Dataset](#dataset)  
+- [Models Implemented](#models-implemented)  
+  - [ShallowCNN](#-shallowcnn-from-scratch)  
+  - [VGG16 Fine-Tuned](#-vgg16_finetuned-transfer-learning)  
+  - [CompactViT](#-compactvit-vit--from-scratch)  
+  - [ViT B16 Fine-Tuned](#-vit_b16_finetuned-transfer-learning)  
+- [Model Summary Table](#-model-summary-table)  
+- [Results](#results)  
+- [Sample Classification](#sample-classification)  
+- [Learning Curves](#-learning-curves-accuracy-vs-epoch)  
+- [Key Findings](#key-findings)  
+- [Future Improvements](#future-improvements)  
+- [Project Structure](#project-structure)  
+- [Technologies Used](#technologies-used)  
+- [Installation](#installation)  
+- [Author](#author)
 
 ## Overview
 
@@ -7,7 +27,7 @@ This project benchmarks four deep learning architectures for CIFAR-10 image clas
 CNNs primarily focus on learning local spatial features such as edges, textures, and shapes through convolution operations, making them highly efficient for smaller image datasets. In contrast, Vision Transformers analyse global relationships between image patches using self-attention mechanisms, enabling stronger contextual understanding and improved feature generalisation.
 
 Models implemented:
-- **[ShallowCNN](notebooks\01-cifar-10-custom-cnn.ipynb)** — A lightweight convolutional neural network built from scratch using convolution, batch normalisation, pooling, and dropout layers.
+- **ShallowCNN** — A lightweight convolutional neural network built from scratch using convolution, batch normalisation, pooling, and dropout layers.
 - **VGG16_FineTuned** — An ImageNet pretrained VGG16 model adapted for CIFAR-10 using transfer learning and partial layer fine-tuning.
 - **CCompactViT** — A transformer-based architecture developed from scratch using patch embeddings, positional encoding, and self-attention mechanisms.
 - **ViT_B16_FineTuned** — A pretrained Vision Transformer fine-tuned on CIFAR-10 by updating the classification head and final transformer block.
@@ -39,7 +59,6 @@ CIFAR-10 contains 60,000 colour images across 10 classes:
 Input image size:
 32×32 RGB images.
 
----
 
 ## Models Implemented
 
@@ -149,13 +168,15 @@ The following plots show training and validation accuracy across epochs for each
 - CNN architectures remained computationally efficient for smaller datasets.
 
 
-## Future Improvements
+## Future Improvements and Recommendation
 
 - Data augmentation experiments
-- Hyperparameter optimisation
-- Mixed precision training
-- EfficientNet comparison
-- Grad-CAM visualisation
+- Grad-CAM visualisation for CNN
+- Attention map visualisation for ViTs
+- adopt pre-trained vit for other computer task like object detection and tracking
+- Evaluate models under noise, occlusion, and adversarial attacks to measure real-world reliability.
+- build a lightweight API (FastAPI/Flask) for image classification.
+
 
 ---
 
