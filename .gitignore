@@ -31,7 +31,7 @@ MANIFEST
 venv/
 ENV/
 env/
-.venv
+.venv/
 
 # IDE
 .vscode/
@@ -41,9 +41,8 @@ env/
 *~
 .DS_Store
 
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb
+# Jupyter Notebook (ONLY checkpoints ignored now)
+.ipynb_checkpoints/
 
 # Data and models
 *.h5
@@ -64,7 +63,6 @@ logs/
 .env.local
 
 # OS
-.DS_Store
 Thumbs.db
 
 # Temporary files
